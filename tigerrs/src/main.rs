@@ -1,3 +1,6 @@
+use tigerrs::straight_line;
+
 fn main() {
-    println!("Hello, world!");
+    println!("Running straight-line interpreter");
+    straight_line::main();
 }

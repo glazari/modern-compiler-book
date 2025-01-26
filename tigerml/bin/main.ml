@@ -4,4 +4,4 @@ let () =
   Printf.printf "Running straight_line.ml\n";
   Tigerml.Straight_line.main ();
   Printf.printf "Running calc.ml\n";
-  Tigerml.Calc.main ();
+  Tigerml.Calc.main ()

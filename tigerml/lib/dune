@@ -1,7 +1,8 @@
 (library
  (name tigerml)
  (modules lexer parser straight_line test1 calc ast_calc)
- (flags (:standard -w -27)))
+ (flags
+  (:standard -w -27)))
 
 (ocamllex lexer)
 

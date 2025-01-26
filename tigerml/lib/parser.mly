@@ -1,3 +1,7 @@
+%{
+open Ast_calc
+%}
+
 %token <int> INT
 %token PLUS MINUS TIMES DIV 
 %token LPAREN RPAREN
@@ -6,19 +10,19 @@
 %left TIMES DIV
 %nonassoc UMINUS
 %start main
-%type <int> main
+%type <expr> main
 %%
 
 main:
     expr EOL { $1 }
 ;
 expr:
-  INT { $1 }
+  INT { Num($1) }
   | LPAREN expr RPAREN { $2 }
-  | expr PLUS expr { $1 + $3 }
-  | expr MINUS expr { $1 - $3 }
-  | expr TIMES expr { $1 * $3 }
-  | expr DIV expr { $1 / $3 }
-  | MINUS expr %prec UMINUS { - $2 }
+  | expr PLUS expr { BinOp($1, Add, $3) } 
+  | expr MINUS expr { BinOp($1, Sub, $3) } 
+  | expr TIMES expr { BinOp($1, Mul, $3) } 
+  | expr DIV expr { BinOp($1, Div, $3) }
+  | MINUS expr %prec UMINUS { Neg $2 }
 ;
 

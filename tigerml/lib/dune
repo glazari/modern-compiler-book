@@ -1,2 +1,9 @@
 (library
- (name tigerml))
+ (name tigerml)
+ (modules lexer parser straight_line test1 calc)
+ (flags (:standard -w -27)))
+
+(ocamllex lexer)
+
+(menhir
+ (modules parser))

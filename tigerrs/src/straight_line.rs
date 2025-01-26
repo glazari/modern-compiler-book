@@ -42,19 +42,24 @@ enum Exp {
 }
 
 fn exampl_prog() -> Stm {
-    compound(
+    vec_stm(vec![
         assign("a", op(Exp::Num(5), BinOp::Plus, Exp::Num(3))),
-        compound(
-            assign(
-                "b",
-                eseq(
-                    printExp!(id("a"), op(id("a"), BinOp::Minus, Exp::Num(1))),
-                    op(Exp::Num(10), BinOp::Times, id("a")),
-                ),
+        assign(
+            "b",
+            eseq(
+                printExp!(id("a"), op(id("a"), BinOp::Minus, Exp::Num(1))),
+                op(Exp::Num(10), BinOp::Times, id("a")),
             ),
-            Stm::Print(vec![id("b")]),
         ),
-    )
+        Stm::Print(vec![id("b")]),
+    ])
+}
+
+// turns a vector of statements into a series of compound statements
+fn vec_stm(v: Vec<Stm>) -> Stm {
+    let mut iter = v.into_iter();
+    let first = iter.next().unwrap();
+    iter.fold(first, |acc, stm| compound(acc, stm))
 }
 
 fn compound(s1: Stm, s2: Stm) -> Stm {

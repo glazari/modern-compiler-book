@@ -1,0 +1,36 @@
+use crate::lexer::Token;
+
+grammar;
+
+pub Expr: i32 = {
+    Term,
+    <l:Expr> "+" <r:Term> => l + r,
+    <l:Expr> "-" <r:Term> => l - r,
+}
+
+pub Term: i32 = {
+    Factor,
+    <l:Term> "*" <r:Factor> => l * r,
+    <l:Term> "/" <r:Factor> => l / r,
+}
+
+pub Factor: i32 = {
+    <n:Int> => n,
+    "(" <e:Expr> ")" => e,
+    "-" <e:Factor> => -e,
+}
+
+extern {
+    type Location = usize;
+    type Error = String;
+
+    enum Token {
+        Int => Token::Int(<i32>),
+        "+" => Token::Plus,
+        "-" => Token::Minus,
+        "*" => Token::Times,
+        "/" => Token::Div,
+        "(" => Token::LParen,
+        ")" => Token::RParen,
+    }
+} 

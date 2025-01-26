@@ -6,7 +6,7 @@ use lalrpop_util::lalrpop_mod;
 lalrpop_mod!(pub grammar);
 
 pub fn main() {
-    let example_prog = "3 * 5 + 4 * 6";
+    let example_prog = "3 * 5 + 4 * -6";
     println!("Running calc.rs");
     println!("Program: {}", example_prog);
 
@@ -20,8 +20,6 @@ pub fn main() {
 
     let parser = grammar::ExprParser::new();
 
-    match parser.parse(lexer) {
-        Ok(result) => println!("Result: {}", result),
-        Err(e) => println!("Error: {:?}", e),
-    }
+    let expr = parser.parse(lexer).expect("Failed to parse");
+    println!("Result: {}", expr.to_string());
 }

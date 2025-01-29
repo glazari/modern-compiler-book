@@ -1,9 +1,9 @@
-use crate::lexer::Token;
+pub mod lexer;
+pub mod ast;
+pub mod grammar;
+
+use lexer::Token;
 use logos::Logos;
-
-use lalrpop_util::lalrpop_mod;
-
-lalrpop_mod!(pub grammar);
 
 pub fn main() {
     let example_prog = "3 * 5 + 4 * -6";

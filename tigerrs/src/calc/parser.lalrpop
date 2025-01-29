@@ -1,5 +1,5 @@
-use crate::lexer::Token;
-use crate::ast_calc::{Expr,  BinOp, binop, neg};
+use crate::calc::lexer::Token;
+use crate::calc::ast::{Expr,  BinOp, binop, neg};
 
 grammar;
 

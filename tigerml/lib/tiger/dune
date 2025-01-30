@@ -1,0 +1,11 @@
+(library 
+  (name tiger)
+  (modules tiger ast parser lexer)
+  (libraries tigerml)
+  )
+
+
+(ocamllex lexer)
+
+(menhir
+ (modules parser))

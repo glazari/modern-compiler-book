@@ -1,4 +1,4 @@
 (executable
  (public_name tigerml)
  (name main)
- (libraries tigerml sexplib))
+ (libraries tigerml sexplib calc))

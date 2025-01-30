@@ -1,0 +1,10 @@
+(library 
+  (name calc)
+  (modules calc ast parser lexer)
+  (libraries tigerml)
+  )
+
+(ocamllex lexer)
+
+(menhir
+ (modules parser))

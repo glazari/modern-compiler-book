@@ -7,7 +7,7 @@ let main () =
     let lexbuf = Lexing.from_string example_prog in
     while true do
       let result = Parser.main Lexer.token lexbuf in
-      Printf.printf "Result: %s\n" (Ast_calc.to_string result)
+      Printf.printf "Result: %s\n" (Ast.to_string result)
     done
     (* on error, return *)
   with Lexer.Eof -> ()

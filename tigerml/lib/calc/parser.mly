@@ -1,5 +1,5 @@
 %{
-open Ast_calc
+open Ast
 %}
 
 %token <int> INT

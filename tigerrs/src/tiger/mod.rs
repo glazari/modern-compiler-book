@@ -7,7 +7,7 @@ use logos::Logos;
 
 pub fn main() {
     let example_prog = "asf 
-bht kdi ";"111 
+bht kdi 111 
 .,(){}[]<>:;*+-/=
 while for to break let in end funciton var type array if then else do of nil
 -32
@@ -15,7 +15,7 @@ while for to break let in end funciton var type array if then else do of nil
 (* comment *)
 \"string with \\\"escaped quotes\"
 
-
+(* nested (* comment *) *)
 \"\"
 ";
     println!("Running tiger.rs");

@@ -1,16 +1,32 @@
 use crate::tiger::lexer::Token;
-use crate::tiger::ast::{Expr};
+use crate::tiger::ast::{Expr, Punctuation, Keyword};
 
 
 grammar;
 
 pub Expr: Expr = {
   Tok,
-  <e:Expr> <t:Tok> => t,
+  <e:Expr> <t:Tok> => {
+    match e {
+      Expr::List(mut l) => {
+        l.push(t);
+        Expr::List(l)
+      }
+      other => Expr::List(vec![other, t]),
+    }
+  },
 }
 
 pub Tok: Expr = {
-  <i:Iden> => Expr::Iden(i),
+  <i:Iden>  => {
+    match Keyword::of_string(&i) {
+      Some(k) => Expr::Keyword(k),
+      None => Expr::Iden(i),
+    }
+  }, 
+  <i:Int>   => Expr::Num(i),
+  <p:Punct> => Expr::Punct(Punctuation::of_string(&p).unwrap()),
+  <s:StrLit> => Expr::StrLit(s),
 }
 
 extern {
@@ -18,6 +34,9 @@ extern {
   type Error = String;
 
   enum Token {
-    Iden => Token::Iden(<String>)
+    Iden => Token::Iden(<String>),
+    Int  => Token::Int(<i64>),
+    Punct => Token::Punctuation(<String>),
+    StrLit => Token::String(<String>),
   }
 }

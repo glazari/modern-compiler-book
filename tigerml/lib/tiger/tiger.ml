@@ -1,4 +1,15 @@
-let example_prog = "asf bht kdi"
+let example_prog = "asf 
+bht kdi 111
+.,(){}[]<>:;*+-/=
+while for to break let in end funciton var type array if then else do of nil
+-32
+\"string\"
+(* comment *)
+\"string with \\\"escaped quotes\"
+
+
+\"\"
+"
 
 let main () =
   Printf.printf "Running tigerml\n";

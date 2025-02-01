@@ -3,6 +3,9 @@ open Ast
 %}
 
 %token <string> IDENTIFIER
+%token <int> NUM
+%token <string> PUNCTUATION
+%token <string> STRING
 %token EOF
 %type <expr> main
 %start main
@@ -13,16 +16,25 @@ main:
 ;
 
 expr:
-  IDENTIFIER { Iden($1) }
-  | expr IDENTIFIER { 
+  tok { $1 }
+  | expr tok { 
             match $1 with 
-            | Iden s -> List([Iden(s); Iden($2)])
-            | List l -> List(l @ [Iden($2)])
-            | Num n -> List([Num(n); Iden($2)])
+            | List l -> List(l @ [$2])
+            | other -> List([other; $2])
             }
   
                 
 ;
+tok:
+  IDENTIFIER {  
+    match keyword_of_string $1 with
+    | Some k -> Keyword(k)
+    | None -> Iden($1)
+  }
+  | NUM { Num($1) }
+  | PUNCTUATION { Punct( punc_of_string $1) }
+  | STRING { StrLit($1) }
+
 
  
 

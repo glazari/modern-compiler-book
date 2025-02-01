@@ -1,0 +1,23 @@
+use crate::tiger::lexer::Token;
+use crate::tiger::ast::{Expr};
+
+
+grammar;
+
+pub Expr: Expr = {
+  Tok,
+  <e:Expr> <t:Tok> => t,
+}
+
+pub Tok: Expr = {
+  <i:Iden> => Expr::Iden(i),
+}
+
+extern {
+  type Location = usize;
+  type Error = String;
+
+  enum Token {
+    Iden => Token::Iden(<String>)
+  }
+}
